@@ -1,0 +1,30 @@
+{
+	"schemaVersion": 1,
+	"id": "noautopause",
+	"version": "${version}",
+	"name": "NoAutoPause",
+	"description": "Disables Minecraft's automatic pausing: the client keeps ticking while its window is in the background, so HTTP-driven or otherwise unattended agents keep running. Only pauseOnLostFocus is cleared, so opening a menu in a single-player world still pauses the game the vanilla way. Standalone extraction of the noautopause behavior that MineAgentAIO carried inline; no Fabric API dependency.",
+	"authors": [
+		"MineAgent"
+	],
+	"license": "LGPL-3.0-only",
+	"environment": "client",
+	"entrypoints": {
+		"client": [
+			"com.mineagent.noautopause.NoAutoPauseMod"
+		]
+	},
+	"mixins": [
+		"noautopause.mixins.json"
+	],
+	"depends": {
+		"fabricloader": ">=0.19.5",
+		"minecraft": "~26.2",
+		"java": ">=25"
+	},
+	"contact": {
+		"homepage": "https://github.com/MineAgent/NoAutoPause",
+		"sources": "https://github.com/MineAgent/NoAutoPause",
+		"issues": "https://github.com/MineAgent/NoAutoPause/issues"
+	}
+}
