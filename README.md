@@ -54,7 +54,7 @@ noautopause: pauseOnLostFocus=false (the client keeps running while unfocused)
 
 在游戏里把窗口切到后台、等几秒再切回来：单人存档不会弹出「游戏已暂停」的菜单，世界时间继续走。
 
-用 `~/Documents/spMC/TestSave.sh`（`--quickPlaySingleplayer test`）在 Linux + X11 上实测。
+用 `--quickPlaySingleplayer test` 直接进单人存档，在 Linux + X11 上实测。
 先故意把 `options.txt` 里的 `pauseOnLostFocus` 写成 `true`（否则这个测试没有意义——开关本来就是关的），
 再用一个多余的 X 窗口把输入焦点从游戏窗口抢走，然后读 `/ctl/mouse` 和 `/aif/world`：
 
