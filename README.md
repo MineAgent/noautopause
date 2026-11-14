@@ -9,7 +9,7 @@ HTTP 控制接口和「后台不暂停」放在同一个 jar 里，这个仓库�
 * 模组 id：`noautopause`
 * 环境：客户端（`environment: client`）
 * 依赖：**只有 Fabric Loader**，不需要 Fabric API，也不需要其他模组
-* 对应 Minecraft：**26.2**（26.1 起官方代码不再混淆，构建不需要 mappings）
+* 对应 Minecraft：**26.2 / 26.3**（26.1 起官方代码不再混淆，构建不需要 mappings）
 
 ## 行为
 
@@ -36,13 +36,13 @@ src/main/java/com/mineagent/noautopause/
 
 ## 构建
 
-需要 JDK 25（Minecraft 26.2 要求）。
+需要 JDK 25（Minecraft 26.2 / 26.3 要求）。
 
 ```bash
-./gradlew build          # 产物: build/libs/noautopause-1.0.0.jar
+./gradlew build          # 产物: build/libs/noautopause-1.0.1.jar
 ```
 
-把 `build/libs/noautopause-1.0.0.jar`（不是 `-sources.jar`）丢进 `~/.minecraft/mods/` 即可。
+把 `build/libs/noautopause-1.0.1.jar`（不是 `-sources.jar`）丢进 `~/.minecraft/mods/` 即可。
 
 ## 验证
 
@@ -60,11 +60,12 @@ noautopause: pauseOnLostFocus=false (the client keeps running while unfocused)
 
 | 测试 | 结果 |
 | --- | --- |
-| 启动（mods 里只有本模组 + Fabric Loader + 那几个 HTTP 模组，**没有 Fabric API**） | 无 mixin 报错，日志出现 `NoAutoPause 1.0.0 loaded` |
+| 启动（mods 里只有本模组 + Fabric Loader + 那几个 HTTP 模组，**没有 Fabric API**） | 无 mixin 报错，日志出现 `NoAutoPause 1.0.1 loaded` |
 | 第一次 tick（`options.txt` 里 `pauseOnLostFocus:true`） | 日志 `noautopause: pauseOnLostFocus=false (the client keeps running while unfocused)` |
 | 失焦后（**装**本模组） | `界面：无`、`抓取：是`，`游戏刻` 从 175351 涨到 175528（约 9 秒 ≈ 177 tick），画面照常是游戏内视角 → 世界没有暂停 |
 | 失焦后（同一实例**不装**本模组，`pauseOnLostFocus:true`） | 500ms 后 `界面：PauseScreen`、`抓取：否` → 原版行为确实会暂停，证明上面那组不是「失焦没生效」 |
 | 正常退出时落盘的 `options.txt` | `pauseOnLostFocus:false`（是模组写进去的那个值） |
+| 26.3（Fabric Loader 0.20.1 / Java 25） | 同一 jar 正常加载，日志出现 `noautopause: pauseOnLostFocus=false`；窗口在后台时 `/aif/world` 的游戏刻持续增长 |
 
 两张截图（同一次失焦，唯一的差别是装没装本模组）：
 
